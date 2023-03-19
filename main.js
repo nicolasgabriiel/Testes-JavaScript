@@ -1,36 +1,20 @@
-const texto = document.getElementById('inserir')
-const botao = document.getElementById('adicionar')
-const elementos = document.getElementById('elementos')
+const carouselContainer = document.querySelector('.carousel-container');
+const prevButton = document.querySelector('.prev-button');
+const nextButton = document.querySelector('.next-button');
 
-let lista = []
-let descrição = ''
-texto.addEventListener('input', () => {
-    descrição = texto.value
-})
+let currentPosition = 0;
+const itemWidth = carouselContainer.clientWidth / 3;
 
-botao.addEventListener('click', () => {
-    lista.push(descrição)
-    console.log(lista)
-    chamarLista()
-    descrição = ''
-    texto.value = ''
-})
+prevButton.addEventListener('click', () => {
+  if (currentPosition > 0) {
+    currentPosition--;
+    carouselContainer.style.transform = `translateX(${-currentPosition * itemWidth}px)`;
+  }
+});
 
-function chamarLista (){
-for(let i = 0; i < lista.length; i++){
-    elementos.innerHTML = `<li>${lista[i]}</li>`
-}
-}
-
-// Declaração de uma variável
-let nome = "João";
-console.log("Olá " + nome + "!");
-
-// Declaração de uma função
-function dobrar(numero) {
-  return numero * 2;
-}
-
-// Chamada da função
-let resultado = dobrar(5);
-console.log(resultado);
+nextButton.addEventListener('click', () => {
+  if (currentPosition < 2) {
+    currentPosition++;
+    carouselContainer.style.transform = `translateX(${-currentPosition * itemWidth}px)`;
+  }
+});
